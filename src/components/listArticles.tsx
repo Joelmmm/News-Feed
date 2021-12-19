@@ -8,40 +8,43 @@ interface Props {
 }
 
 function ListArticles({ articles, isLoading }: Props) {
+  console.log("Ready: ", articles);
 
   return (
     <div>
-      {articles.map(article => (
+      {isLoading && articles.length === 0 ?
+      new Array(4).fill(<Card loading={isLoading}></Card>) :
+      (articles.map(article => (
         <Card
           key={article.headline}
           loading={isLoading}
-          bodyStyle={{ display: "flex", justifyContent: "center" }}>
+          bodyStyle={ { display: isLoading ? "" : "flex", justifyContent: "center" }}>
           {article.multimedia.empty ? (
             <></>
-          ) : isLoading ? (
-            <Skeleton.Image />
           ) : (
-            <Image width='40vh' preview={false} src={article.multimedia.url} />
+            <Image width='25vw' preview={false} src={article.multimedia.url} />
           )}
           <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              width: article.multimedia.empty ? "100%" : "75%",
-              paddingLeft: "1rem",
-              alignItems: "center",
-              justifyContent: "center"
-            }}>
-            <h2>{article.headline}</h2>
-            <p>{article.abstract}</p>
+            className='article-wrapper'
+            style={{ width: article.multimedia.empty ? "100%" : "75%" }}>
+            <h2 className='article-headline'>{article.headline}</h2>
+            <p className='article-abstract'>
+              {sliceArticleAbstract(article.abstract)}
+            </p>
             <a href={article.url}>
               Go to source <ExportOutlined />
             </a>
           </div>
         </Card>
-      ))}
+      )))}
     </div>
   );
+}
+
+function sliceArticleAbstract(text: string) {
+  const maxLength = 275;
+  if (text.length < maxLength) return text;
+  else return `${text.slice(0, text.lastIndexOf(" ", maxLength))}...`;
 }
 
 export default ListArticles;

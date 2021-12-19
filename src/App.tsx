@@ -1,5 +1,4 @@
 import "./App.css";
-import "antd/dist/antd.css";
 import { getData, ArticleI } from "./fetchNews";
 import { useEffect, useState } from "react";
 import SearchBar from "./components/searchBar";
