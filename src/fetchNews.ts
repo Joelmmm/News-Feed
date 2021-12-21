@@ -55,13 +55,14 @@ class Guardian implements RequestInfo {
 
 //const guardian = new GuardianClient(new Guardian().apiKey, true);
 
-export async function getData(queryTerm = "Tech") {
+export async function getData(queryTerm = "", page = 0) {
   const source = NYTimes;
   const url =
-    `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${queryTerm}&api-key=` +
+    `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=${queryTerm}&page=${page}&api-key=` +
     source.apiKey;
   const data = await fetch(url);
   const dataParsed = await data.json();
+  
   let articles: Array<any> = dataParsed.response.docs;
   console.log("Raw: ", articles);
   

@@ -1,4 +1,4 @@
-import { Card, Image, Skeleton } from "antd";
+import { Card, Image } from "antd";
 import { ArticleI } from "../fetchNews";
 import { ExportOutlined } from "@ant-design/icons";
 
