@@ -16,6 +16,7 @@ export interface ArticleI {
     empty: boolean;
   };
   url: string;
+  pub_date: string;
 }
 
 class Article implements ArticleI {
@@ -26,16 +27,20 @@ class Article implements ArticleI {
     empty: boolean;
   };
   url: string;
+  pub_date: string;
   constructor(
     headline: string,
     abstract: string,
     multimedia: { url: string; empty: boolean },
-    url: string
+    url: string,
+    pub_date: string
   ) {
     this.headline = headline;
     this.multimedia = multimedia;
     this.abstract = abstract;
     this.url = url;
+    this.pub_date = pub_date;
+
   }
 }
 
@@ -91,7 +96,8 @@ function serializeArticle(articleObj: {
           empty: article.multimedia.length < 1,
           url: NYTimes.imgBaseUrl + article.multimedia[0]?.url
         },
-        article.web_url
+        article.web_url,
+        article.pub_date
       );
     }
     /* case "guardian": {

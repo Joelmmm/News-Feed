@@ -24,6 +24,7 @@ function App() {
     setArticles(await getData(term));
     setLastQuery(term);
     setWaitingForArticles(false);
+    setLoadedPageNumber(0);
   }
 
   async function onLoadMore() {

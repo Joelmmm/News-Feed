@@ -1,6 +1,7 @@
 import { Card, Image } from "antd";
 import { ArticleI } from "../fetchNews";
 import { ExportOutlined } from "@ant-design/icons";
+import InfoTags from './infoTags';
 
 interface Props {
   articles: ArticleI[];
@@ -34,6 +35,7 @@ function ListArticles({ articles, isLoading }: Props) {
             <a href={article.url}>
               Go to source <ExportOutlined />
             </a>
+            <InfoTags date={article.pub_date} />
           </div>
         </Card>
       )))}
