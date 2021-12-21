@@ -3,12 +3,14 @@ import { getData, ArticleI } from "./fetchNews";
 import { useEffect, useState } from "react";
 import { BackTop, Col, message, Row } from "antd";
 import Main from "./components/main";
+import { useMediaQuery } from "react-responsive";
 
 function App() {
   const [articles, setArticles] = useState([] as ArticleI[]);
   const [waitingForArticles, setWaitingForArticles] = useState(true);
   const [loadedPageNumber, setLoadedPageNumber] = useState(0);
   const [lastQuery, setLastQuery] = useState("");
+  const isSmartphone = useMediaQuery({ query: '(max-width: 480px)'});
 
   useEffect(() => {
     (async () => {
@@ -47,7 +49,7 @@ function App() {
   return (
     <div className='App'>
       <Row align='middle' justify='center'>
-        <Col span={17}>
+        <Col span={ isSmartphone ? 25 : 17}>
           <Main
             articles={articles}
             loadedPageNumber={loadedPageNumber}

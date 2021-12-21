@@ -24,3 +24,12 @@
 #search-bar {
   padding: 2.5rem 0;
 }
+
+@media screen and (max-width: 768px) {
+  .ant-card-body {
+    flex-direction: column;
+  }
+  .article-wrapper {
+    margin-top: 1rem;
+  }
+}

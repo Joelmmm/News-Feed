@@ -2,6 +2,7 @@ import { Card, Image } from "antd";
 import { ArticleI } from "../fetchNews";
 import { ExportOutlined } from "@ant-design/icons";
 import InfoTags from './infoTags';
+import { useMediaQuery } from "react-responsive";
 
 interface Props {
   articles: ArticleI[];
@@ -10,6 +11,7 @@ interface Props {
 
 function ListArticles({ articles, isLoading }: Props) {
   console.log("Ready: ", articles);
+  const isTabletOrSmartphone = useMediaQuery({query: '(max-width: 768px)'});
 
   return (
     <div>
@@ -23,11 +25,11 @@ function ListArticles({ articles, isLoading }: Props) {
           {article.multimedia.empty ? (
             <></>
           ) : (
-            <Image width='25vw' preview={false} src={article.multimedia.url} />
+            <Image width={isTabletOrSmartphone ? '100%' : '25vw'} preview={false} src={article.multimedia.url} />
           )}
           <div
             className='article-wrapper'
-            style={{ width: article.multimedia.empty ? "100%" : "75%" }}>
+            style={{ width: article.multimedia.empty || isTabletOrSmartphone ? "100%" : "75%" }}>
             <h2 className='article-headline'>{article.headline}</h2>
             <p className='article-abstract'>
               {sliceArticleAbstract(article.abstract)}
