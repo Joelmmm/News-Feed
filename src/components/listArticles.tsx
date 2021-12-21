@@ -35,7 +35,7 @@ function ListArticles({ articles, isLoading }: Props) {
             <a href={article.url}>
               Go to source <ExportOutlined />
             </a>
-            <InfoTags date={article.pub_date} />
+            <InfoTags date={article.pub_date} source={article.source} />
           </div>
         </Card>
       )))}

@@ -17,6 +17,7 @@ export interface ArticleI {
   };
   url: string;
   pub_date: string;
+  source: string;
 }
 
 class Article implements ArticleI {
@@ -28,19 +29,21 @@ class Article implements ArticleI {
   };
   url: string;
   pub_date: string;
+  source: string;
   constructor(
     headline: string,
     abstract: string,
     multimedia: { url: string; empty: boolean },
     url: string,
-    pub_date: string
+    pub_date: string,
+    source: string
   ) {
     this.headline = headline;
     this.multimedia = multimedia;
     this.abstract = abstract;
     this.url = url;
     this.pub_date = pub_date;
-
+    this.source = source;
   }
 }
 
@@ -67,10 +70,9 @@ export async function getData(queryTerm = "", page = 0) {
     source.apiKey;
   const data = await fetch(url);
   const dataParsed = await data.json();
-  
+
   let articles: Array<any> = dataParsed.response.docs;
   console.log("Raw: ", articles);
-  
 
   /*   const guardianArticles = await guardian.content.search(queryTerm, {
     section: "politics"
@@ -91,13 +93,14 @@ function serializeArticle(articleObj: {
     case "nytimes": {
       return new Article(
         article.headline?.main,
-        (article.abstract || article.lead_paragraph),
+        article.abstract || article.lead_paragraph,
         {
           empty: article.multimedia.length < 1,
           url: NYTimes.imgBaseUrl + article.multimedia[0]?.url
         },
         article.web_url,
-        article.pub_date
+        article.pub_date,
+        article.source
       );
     }
     /* case "guardian": {

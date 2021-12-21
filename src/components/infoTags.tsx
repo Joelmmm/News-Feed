@@ -3,12 +3,16 @@ import dayjs from "dayjs";
 
 interface Props {
   date: string;
+  source: string;
 }
 
-function InfoTags({ date }: Props) {
+function InfoTags({ date, source }: Props) {
   return (
     <div className='info-tags'>
-      <Tag>{dayjs(date).format('DD/MM/YYYY')}</Tag>
+    {
+      source ? <Tag color="green">{source}</Tag> : null
+    }
+      <Tag>{dayjs(date).format("DD/MM/YYYY")}</Tag>
     </div>
   );
 }
