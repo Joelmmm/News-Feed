@@ -42,7 +42,7 @@ function App() {
     <div className='App'>
       <Row align='middle' justify='center'>
         <Col span={17}>
-          <SearchBar onSearch={onSearch} />
+          <SearchBar onSearch={onSearch} isLoading={waitingForArticles} />
           <ListArticles articles={articles} isLoading={waitingForArticles && loadedPageNumber === 0} />
           <LoadMore handleClick={onLoadMore} isLoading={waitingForArticles} />
         </Col>

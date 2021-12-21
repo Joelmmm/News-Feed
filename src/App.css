@@ -2,7 +2,6 @@
 
 .article-abstract {
   max-width: 75%;
-  
 }
 
 .article-wrapper {
@@ -20,4 +19,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+#search-bar {
+  padding: 2.5rem 0;
 }

@@ -3,13 +3,20 @@ import { Input } from "antd";
 const { Search } = Input;
 
 interface SearchBarProps {
-  onSearch: (term: string) => void
+  onSearch: (term: string) => void;
+  isLoading: boolean;
 }
 
-function SearchBar({ onSearch }: SearchBarProps) {
+function SearchBar({ onSearch, isLoading }: SearchBarProps) {
   return (
     <div id='search-bar'>
-      <Search placeholder='Input search text' onSearch={onSearch} enterButton />
+      <Search
+        placeholder='Input your term'
+        addonBefore='Search articles.'
+        onSearch={onSearch}
+        enterButton
+        loading={isLoading}
+      />
     </div>
   );
 }
