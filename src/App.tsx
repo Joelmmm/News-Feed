@@ -1,10 +1,8 @@
 import "./App.css";
 import { getData, ArticleI } from "./fetchNews";
 import { useEffect, useState } from "react";
-import SearchBar from "./components/searchBar";
-import ListArticles from "./components/listArticles";
 import { BackTop, Col, message, Row } from "antd";
-import LoadMore from "./components/loadMore";
+import Main from "./components/main";
 
 function App() {
   const [articles, setArticles] = useState([] as ArticleI[]);
@@ -32,6 +30,13 @@ function App() {
     setWaitingForArticles(true);
     const hideMessage = message.loading("Loading more articles...");
     const newData = await getData(lastQuery, loadedPageNumber + 1);
+    if (newData.length < 1) {
+      const hideErrorMessage = message.error("There are no more articles matching your query. Try looking for something else!");
+      hideMessage();
+      setWaitingForArticles(false);
+      setTimeout(() => hideErrorMessage(), 3000);
+      return
+    }
     setArticles(prev => {
       return [...prev, ...newData];
     });
@@ -43,9 +48,13 @@ function App() {
     <div className='App'>
       <Row align='middle' justify='center'>
         <Col span={17}>
-          <SearchBar onSearch={onSearch} isLoading={waitingForArticles} />
-          <ListArticles articles={articles} isLoading={waitingForArticles && loadedPageNumber === 0} />
-          <LoadMore handleClick={onLoadMore} isLoading={waitingForArticles} />
+          <Main
+            articles={articles}
+            loadedPageNumber={loadedPageNumber}
+            onSearch={onSearch}
+            onLoadMore={onLoadMore}
+            waitingForArticles={waitingForArticles}
+          />
         </Col>
         <BackTop />
       </Row>
