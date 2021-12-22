@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { BackTop, Col, message, Row } from "antd";
 import Main from "./components/main";
 import { useMediaQuery } from "react-responsive";
+import About from "./components/about";
 
 function App() {
   const [articles, setArticles] = useState([] as ArticleI[]);
@@ -48,8 +49,10 @@ function App() {
 
   return (
     <div className='App'>
+      
       <Row align='middle' justify='center'>
         <Col span={ isSmartphone ? 25 : 17}>
+        <About/>
           <Main
             articles={articles}
             loadedPageNumber={loadedPageNumber}
